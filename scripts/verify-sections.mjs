@@ -32,7 +32,7 @@ const declared = new Set([...typesSrc.matchAll(/\bid:\s*['"]([\w-]+)['"]/g)].map
 // register.tsx declares each renderer as a map entry (`id: ({ section }) => …`),
 // so match an indented identifier key immediately followed by a function.
 const registered = new Set(
-  [...registerSrc.matchAll(/^\s+([\w-]+):\s*(?:async\s+)?\(/gm)].map((m) => m[1]),
+  [...registerSrc.matchAll(/^\s+['"]?([\w-]+)['"]?\s*:\s*(?:async\s+)?\(/gm)].map((m) => m[1]),
 );
 
 let ok = true;

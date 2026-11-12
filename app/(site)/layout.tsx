@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { unstable_cache } from 'next/cache';
-import { SiteNav } from '@prenta/sections-react';
 import { ScriptTagGroup } from '@prenta/core/next/script-tags';
 import {
   resolveScriptTagsForPath,
   SCRIPT_TAGS_CACHE_TAG,
 } from '@prenta/core/script-tags';
-import { getNavigation } from '@/lib/cms';
 import { getPrisma } from '@/lib/prisma';
 import '@/src/sections/register';
 import './globals.css';
@@ -85,52 +83,21 @@ async function getScriptTags(): Promise<ScriptTags> {
   }
 }
 
-// Load a navigation menu by slug. Returns null when the navigation plugin
-// isn't installed or no menu with that slug exists yet, so the header/footer
-// degrade gracefully.
-async function getNav(slug: string) {
-  try {
-    return await getNavigation(slug);
-  } catch {
-    return null;
-  }
-}
-
 export default async function SiteLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [tags, headerNav, footerNav] = await Promise.all([
-    getScriptTags(),
-    getNav('main'),
-    getNav('footer'),
-  ]);
+  const tags = await getScriptTags();
 
   return (
     <html lang="en">
       <head>
         <ScriptTagGroup codes={tags.head} idPrefix="head" />
       </head>
-      <body className="flex min-h-screen flex-col">
+      <body>
         <ScriptTagGroup codes={tags.body_open} idPrefix="body-open" />
-        <header className="border-b border-zinc-200">
-          <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
-            <a href="/" className="text-lg font-medium text-zinc-900">
-              fence-outlet
-            </a>
-            {headerNav && headerNav.items.length > 0 && <SiteNav items={headerNav.items} />}
-          </div>
-        </header>
-        <main className="flex-1">{children}</main>
-        {footerNav && footerNav.items.length > 0 && (
-          <footer className="border-t border-zinc-200">
-            <div className="mx-auto flex max-w-5xl flex-col gap-2 px-4 py-6 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between">
-              <span>&copy; {new Date().getFullYear()} fence-outlet</span>
-              <SiteNav items={footerNav.items} ariaLabel="Footer" />
-            </div>
-          </footer>
-        )}
+        {children}
         <ScriptTagGroup codes={tags.body_close} idPrefix="body-close" />
       </body>
     </html>

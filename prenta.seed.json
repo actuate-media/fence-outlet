@@ -51,103 +51,585 @@
           "title": "Home",
           "slug": "home",
           "path": "/",
+          "metaTitle": "Fence Materials & Professional Installation | Fence Outlet",
+          "metaDescription": "Fence materials and professional installation from Fence Outlet. 30+ years, 8 Florida locations, licensed and insured.",
           "sections": [
             {
+              "id": "sec-header",
+              "sectionType": "site-header",
+              "name": "Site Header",
+              "visible": true,
+              "content": {
+                "logoSrc": "/homepage/logo-fence-outlet.png",
+                "logoAlt": "Fence Outlet home",
+                "financingUrl": "https://www.fenceoutlet.com/professional-fence-financing/",
+                "installTitle": "A Complete Turnkey Project",
+                "installBody": "We measure your project, take care of the formalities and install your fence, so you can sit back and enjoy it.",
+                "installChecks": [
+                  {
+                    "text": "Free estimate at your home"
+                  },
+                  {
+                    "text": "Permits and HOA paperwork handled"
+                  },
+                  {
+                    "text": "Lifetime materials warranty on most products"
+                  },
+                  {
+                    "text": "One-year workmanship warranty"
+                  }
+                ],
+                "installAboutLabel": "About Professional Installation",
+                "installAboutUrl": "https://www.fenceoutlet.com/professional-installation/",
+                "installOfferImage": "/homepage/hero-tab-install.jpg",
+                "installOfferAlt": "Cream vinyl privacy fence installed along a landscaped Florida yard",
+                "installOfferTitle": "Installed from $125/mo",
+                "installOfferNote": "On approved credit.",
+                "installOfferLinkLabel": "See details",
+                "installOfferLinkUrl": "#financing",
+                "installCta": "Book a Free Estimate",
+                "materialsOfferTitle": "Millions in Inventory In Stock",
+                "materialsOfferBody": "See and feel every style at our 8 showrooms. Store pickup or next business day delivery.",
+                "materialsCta": "Get a Materials Quote",
+                "boxTitle": "Everything for 120 Feet of Fence",
+                "boxBody": "Three of our most common styles, built for an average backyard, with a standard 4' walk gate and hardware included.",
+                "boxCompareLabel": "Compare All Boxes",
+                "boxCompareUrl": "https://www.fenceoutlet.com/fence/fence-in-a-box/",
+                "hoursTitle": "Store Hours",
+                "hoursBody": "Monday–Friday 8AM–5PM\nSaturday 8AM–4PM\nSunday Closed",
+                "hoursLinkLabel": "Contact Us",
+                "hoursLinkUrl": "https://www.fenceoutlet.com/contact-us/",
+                "hoursImage": "/homepage/hero-tab-showrooms.jpg",
+                "hoursAlt": "Fence Outlet store front with orange awnings",
+                "drawerFinancingUrl": "https://www.fenceoutlet.com/professional-fence-financing/",
+                "drawerQuoteLabel": "Get a Free Quote",
+                "drawerHours": "Mon–Fri 8AM–5PM · Sat 8AM–4PM · Sun Closed"
+              },
+              "settings": {
+                "backgroundType": "none"
+              }
+            },
+            {
+              "id": "sec-trust",
+              "sectionType": "trust-band",
+              "name": "Trust Band",
+              "visible": true,
+              "content": {
+                "heading": "Fence Materials & Professional Installation",
+                "line": "30+ Years · 8 Florida Locations · Licensed & Insured"
+              },
+              "settings": {
+                "backgroundType": "none"
+              }
+            },
+            {
               "id": "sec-hero",
-              "sectionType": "hero",
-              "name": "Hero Banner",
+              "sectionType": "quote-hero",
+              "name": "Quote Hero",
               "visible": true,
               "content": {
-                "eyebrow": "Launching soon",
-                "heading": "Marketing sites your editors can actually edit",
-                "body": "Author every section of this page in the admin — copy, pricing, stats, and calls to action — and publish without a deploy.",
-                "primaryButtonLabel": "Get Started",
-                "primaryButtonUrl": "/contact",
-                "secondaryButtonLabel": "See pricing",
-                "secondaryButtonUrl": "#pricing"
-              },
-              "settings": {
-                "backgroundType": "solid",
-                "backgroundColor": "purple",
-                "paddingY": "xl"
-              }
-            },
-            {
-              "id": "sec-stats",
-              "sectionType": "stats",
-              "name": "By the Numbers",
-              "visible": true,
-              "content": {
-                "heading": "By the numbers",
-                "body": "",
-                "stats": [
+                "installLabel": "Install It For Me",
+                "installNote": "Free home estimate",
+                "diyLabel": "I'll Build It Myself",
+                "diyNote": "Materials at 8 stores",
+                "smsLabel": "Text me scheduling updates and reminders",
+                "privacyUrl": "https://www.fenceoutlet.com/privacy-policy/",
+                "privacyLabel": "privacy policy",
+                "tabs": [
                   {
-                    "value": "99.99%",
-                    "label": "Uptime",
-                    "description": ""
+                    "variant": "install",
+                    "image": "/homepage/hero-tab-install.jpg",
+                    "alt": "Cream vinyl privacy fence installed along a landscaped Florida yard",
+                    "label": "We Install It",
+                    "buttonLabel": "We Install It: professional installation",
+                    "eyebrow": "We Install It",
+                    "heading": "Professional Fence Installation",
+                    "lead": "Free estimate at your home. Permits and HOA paperwork handled.",
+                    "detail": "Installed from $125/mo on approved credit",
+                    "emphasis": "$125/mo",
+                    "linkLabel": "",
+                    "linkUrl": ""
                   },
                   {
-                    "value": "124ms",
-                    "label": "Avg response time",
-                    "description": ""
+                    "variant": "diy",
+                    "image": "/homepage/hero-tab-diy.jpg",
+                    "alt": "Fence Outlet associate walking customers through a showroom of white vinyl fence styles",
+                    "label": "You Build It",
+                    "buttonLabel": "You Build It: fence materials and DIY supply",
+                    "eyebrow": "You Build It",
+                    "heading": "Fence Materials & DIY Supply",
+                    "lead": "IN STOCK at 8 showrooms with NO wait. Store pickup or delivery.",
+                    "detail": "Fence in a Box from $1,392",
+                    "emphasis": "$1,392",
+                    "linkLabel": "Shop Now",
+                    "linkUrl": "https://www.fenceoutlet.com/fence/fence-in-a-box/"
                   },
                   {
-                    "value": "3M+",
-                    "label": "Requests served",
-                    "description": ""
+                    "variant": "showrooms",
+                    "image": "/homepage/hero-tab-showrooms.jpg",
+                    "alt": "Fence Outlet store front with orange awnings",
+                    "label": "8 Showrooms",
+                    "buttonLabel": "8 Florida showrooms",
+                    "eyebrow": "",
+                    "heading": "8 Florida Showrooms",
+                    "lead": "See and feel every style. Mon–Fri 8–5 · Sat 8–4.",
+                    "detail": "",
+                    "emphasis": "",
+                    "linkLabel": "",
+                    "linkUrl": ""
+                  },
+                  {
+                    "variant": "financing",
+                    "image": "/homepage/hero-tab-financing.jpg",
+                    "alt": "White vinyl picket fence along a green lawn",
+                    "label": "0% Financing",
+                    "buttonLabel": "Financing offers",
+                    "eyebrow": "",
+                    "heading": "12 Months 0% Interest",
+                    "lead": "On all of our fences. Starting at $125/month for 36 months for White Vinyl and Aluminum Fencing installed.",
+                    "detail": "",
+                    "emphasis": "",
+                    "linkLabel": "See financing details",
+                    "linkUrl": "#financing"
                   }
                 ]
               },
               "settings": {
-                "backgroundType": "none",
-                "paddingY": "lg"
+                "backgroundType": "none"
               }
             },
             {
-              "id": "sec-pricing",
-              "sectionType": "pricing",
-              "name": "Pricing Table",
+              "id": "sec-fence-types",
+              "sectionType": "fence-types",
+              "name": "Fence Types",
               "visible": true,
               "content": {
-                "heading": "Simple, transparent pricing",
-                "plans": [
+                "heading": "Pick Your Fence",
+                "intro": "Every style, installed by us or ready for you to build.",
+                "materials": [
                   {
-                    "name": "Starter",
-                    "price": "$29/mo",
-                    "description": "For new projects finding their footing."
+                    "name": "Vinyl",
+                    "desc": "Privacy and a clean, lasting look with low-maintenance vinyl.",
+                    "image": "/homepage/fence-vinyl.jpg",
+                    "alt": "Close-up of white vinyl fence panels",
+                    "installUrl": "https://www.fenceoutlet.com/vinyl-fencing/",
+                    "installLabel": "Get Installed",
+                    "buyUrl": "https://www.fenceoutlet.com/fence/vinyl/vinyl-sections/",
+                    "buyLabel": "Buy Materials",
+                    "links": [
+                      {
+                        "label": "Sections",
+                        "url": "https://www.fenceoutlet.com/fence/vinyl/vinyl-sections/"
+                      },
+                      {
+                        "label": "Posts",
+                        "url": "https://www.fenceoutlet.com/fence/vinyl/vinyl-posts/"
+                      },
+                      {
+                        "label": "Gates",
+                        "url": "https://www.fenceoutlet.com/fence/vinyl/vinyl-gates/"
+                      },
+                      {
+                        "label": "Caps",
+                        "url": "https://www.fenceoutlet.com/fence/vinyl/vinyl-caps/"
+                      },
+                      {
+                        "label": "Parts",
+                        "url": "https://www.fenceoutlet.com/fence/vinyl/vinyl-parts/"
+                      },
+                      {
+                        "label": "Accessories",
+                        "url": "https://www.fenceoutlet.com/fence/vinyl/vinyl-accessories/"
+                      }
+                    ]
                   },
                   {
-                    "name": "Pro",
-                    "price": "$79/mo",
-                    "description": "For growing teams that ship every week."
+                    "name": "Wood",
+                    "desc": "Privacy and natural character for your property.",
+                    "image": "/homepage/fence-wood.jpg",
+                    "alt": "Close-up of wood privacy fence boards",
+                    "installUrl": "https://www.fenceoutlet.com/wood-fencing/",
+                    "installLabel": "Get Installed",
+                    "buyUrl": "https://www.fenceoutlet.com/fence/wood/wood-sections/",
+                    "buyLabel": "Buy Materials",
+                    "links": [
+                      {
+                        "label": "Sections",
+                        "url": "https://www.fenceoutlet.com/fence/wood/wood-sections/"
+                      },
+                      {
+                        "label": "Posts",
+                        "url": "https://www.fenceoutlet.com/fence/wood/wood-posts/"
+                      },
+                      {
+                        "label": "Gates",
+                        "url": "https://www.fenceoutlet.com/fence/wood/wood-gates/"
+                      },
+                      {
+                        "label": "Accessories",
+                        "url": "https://www.fenceoutlet.com/fence/wood/wood-accessories/"
+                      }
+                    ]
                   },
                   {
-                    "name": "Enterprise",
-                    "price": "Custom",
-                    "description": "Security review, SSO, and a dedicated SLA."
+                    "name": "Aluminum",
+                    "desc": "Durable, stylish fencing for residential and commercial properties.",
+                    "image": "/homepage/fence-aluminum.jpg",
+                    "alt": "Close-up of black ornamental aluminum fence",
+                    "installUrl": "https://www.fenceoutlet.com/aluminum-fencing/",
+                    "installLabel": "Get Installed",
+                    "buyUrl": "https://www.fenceoutlet.com/fence/aluminum/aluminum-sections/",
+                    "buyLabel": "Buy Materials",
+                    "links": [
+                      {
+                        "label": "Sections",
+                        "url": "https://www.fenceoutlet.com/fence/aluminum/aluminum-sections/"
+                      },
+                      {
+                        "label": "Posts",
+                        "url": "https://www.fenceoutlet.com/fence/aluminum/aluminum-posts/"
+                      },
+                      {
+                        "label": "Gates",
+                        "url": "https://www.fenceoutlet.com/fence/aluminum/aluminum-gates/"
+                      },
+                      {
+                        "label": "Accessories",
+                        "url": "https://www.fenceoutlet.com/fence/aluminum/aluminum-accessories/"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Chain Link",
+                    "desc": "Landscape detail and security at low prices.",
+                    "image": "/homepage/fence-chain-link.jpg",
+                    "alt": "Close-up of galvanized chain link fence",
+                    "installUrl": "https://www.fenceoutlet.com/chain-link-fencing/",
+                    "installLabel": "Get Installed",
+                    "buyUrl": "https://www.fenceoutlet.com/fence/chain-link/chain-link-wire/",
+                    "buyLabel": "Buy Materials",
+                    "links": [
+                      {
+                        "label": "Gates",
+                        "url": "https://www.fenceoutlet.com/fence/chain-link/chain-link-gates/"
+                      },
+                      {
+                        "label": "Wire",
+                        "url": "https://www.fenceoutlet.com/fence/chain-link/chain-link-wire/"
+                      },
+                      {
+                        "label": "Framework",
+                        "url": "https://www.fenceoutlet.com/fence/chain-link/chain-link-framework/"
+                      },
+                      {
+                        "label": "Fittings",
+                        "url": "https://www.fenceoutlet.com/fence/chain-link/chain-link-fittings/"
+                      },
+                      {
+                        "label": "Accessories",
+                        "url": "https://www.fenceoutlet.com/fence/chain-link/chain-link-accessories/"
+                      }
+                    ]
                   }
                 ]
               },
               "settings": {
-                "backgroundType": "none",
-                "paddingY": "xl"
+                "backgroundType": "none"
               }
             },
             {
-              "id": "sec-cta",
-              "sectionType": "cta",
-              "name": "CTA Banner",
+              "id": "sec-fence-box",
+              "sectionType": "fence-box",
+              "name": "Fence in a Box",
               "visible": true,
               "content": {
-                "heading": "Ready to get started?",
-                "body": "Spin up your site and hand the keys to your editors.",
-                "buttonLabel": "Start Building",
-                "buttonUrl": "/contact"
+                "heading": "Fence in a Box",
+                "intro": "Everything you need for an average 120' backyard, including a standard 4' walk gate with hardware.",
+                "kits": [
+                  {
+                    "name": "Wood",
+                    "price": "$1,392",
+                    "spec": "15 sections, 18 posts, walk gate and hardware",
+                    "image": "/homepage/box-wood.jpg",
+                    "alt": "Wood Fence in a Box: 15 sections, 18 posts, gate and hardware",
+                    "url": "https://www.fenceoutlet.com/product/wood-fence-in-a-box/",
+                    "cta": "Learn More"
+                  },
+                  {
+                    "name": "Vinyl",
+                    "price": "$2,128",
+                    "spec": "20 sections, 22 posts and caps, walk gate, 22 bags cement mix",
+                    "image": "/homepage/box-vinyl.jpg",
+                    "alt": "Vinyl Fence in a Box: 20 sections, 22 posts and flat caps, 22 bags cement mix, gate and hardware",
+                    "url": "https://www.fenceoutlet.com/product/vinyl-fence-in-a-box/",
+                    "cta": "Learn More"
+                  },
+                  {
+                    "name": "Aluminum",
+                    "price": "$2,336",
+                    "spec": "20 sections, 22 posts, walk gate and hardware",
+                    "image": "/homepage/box-aluminum.jpg",
+                    "alt": "Aluminum Fence in a Box: 20 sections, 22 posts, gate and hardware",
+                    "url": "https://www.fenceoutlet.com/product/aluminum-fence-in-a-box/",
+                    "cta": "Learn More"
+                  }
+                ]
               },
               "settings": {
-                "backgroundType": "solid",
-                "backgroundColor": "purple",
-                "paddingY": "xl"
+                "backgroundType": "none"
+              }
+            },
+            {
+              "id": "sec-financing",
+              "sectionType": "financing-offer",
+              "name": "Financing Offer",
+              "visible": true,
+              "content": {
+                "heading": "12 Months 0% Interest",
+                "body": "On all of our fences. Starting at $125/month for 36 months for White Vinyl and Aluminum Fencing installed.",
+                "ctaLabel": "Get Your Financing Offer",
+                "ctaUrl": "https://www.fenceoutlet.com/professional-fence-financing/",
+                "disclaimer": "Financing available to qualified buyers with approved credit. Promotional financing offers, including 0% interest, are subject to lender approval. Actual APR, loan amount, repayment term, and monthly payment vary based on creditworthiness and other qualifying factors. Restrictions may apply. Contact us for complete details."
+              },
+              "settings": {
+                "backgroundType": "none"
+              }
+            },
+            {
+              "id": "sec-locations",
+              "sectionType": "store-locations",
+              "name": "Store Locations",
+              "visible": true,
+              "content": {
+                "heading": "Come See It In Person",
+                "stores": [
+                  {
+                    "name": "Orlando",
+                    "fullName": "Orlando",
+                    "address": "9671 S Orange Blossom Trail, Orlando, FL 32837",
+                    "phone": "407.851.6660",
+                    "tel": "tel:+14078516660",
+                    "url": "https://www.fenceoutlet.com/fence-company-orlando/"
+                  },
+                  {
+                    "name": "Oviedo",
+                    "fullName": "Oviedo",
+                    "address": "1724 W Broadway St, Oviedo, FL 32765",
+                    "phone": "407.359.9092",
+                    "tel": "tel:+14073599092",
+                    "url": "https://www.fenceoutlet.com/fence-company-oviedo/"
+                  },
+                  {
+                    "name": "Daytona",
+                    "fullName": "Daytona",
+                    "address": "1725 S Nova Rd, South Daytona, FL 32119",
+                    "phone": "386.267.6760",
+                    "tel": "tel:+13862676760",
+                    "url": "https://www.fenceoutlet.com/fence-company-daytona/"
+                  },
+                  {
+                    "name": "Melbourne",
+                    "fullName": "Melbourne",
+                    "address": "25 South Wickham Road, Melbourne, FL 32904",
+                    "phone": "321.802.6480",
+                    "tel": "tel:+13218026480",
+                    "url": "https://www.fenceoutlet.com/fence-company-melbourne/"
+                  },
+                  {
+                    "name": "Tampa",
+                    "fullName": "Tampa",
+                    "address": "201 S Falkenburg Rd, Tampa, FL 33619",
+                    "phone": "813.651.3623",
+                    "tel": "tel:+18136513623",
+                    "url": "https://www.fenceoutlet.com/fence-company-tampa/"
+                  },
+                  {
+                    "name": "North Port",
+                    "fullName": "North Port / Ft. Myers",
+                    "address": "12984 S Tamiami Trail, North Port, FL 34287",
+                    "phone": "941.346.6800",
+                    "tel": "tel:+19413466800",
+                    "url": "https://www.fenceoutlet.com/fence-company-north-port-ft-myers/"
+                  },
+                  {
+                    "name": "Port Richey",
+                    "fullName": "Port Richey",
+                    "address": "11507 US-19, Port Richey, FL 34668",
+                    "phone": "727.857.7590",
+                    "tel": "tel:+17278577590",
+                    "url": "https://www.fenceoutlet.com/fence-company-port-richey/"
+                  },
+                  {
+                    "name": "Jacksonville",
+                    "fullName": "Jacksonville",
+                    "address": "250 Lane Ave N. Jacksonville, FL 32254",
+                    "phone": "904.539.5605",
+                    "tel": "tel:+19045395605",
+                    "url": "https://www.fenceoutlet.com/fence-company-jacksonville/"
+                  }
+                ]
+              },
+              "settings": {
+                "backgroundType": "none"
+              }
+            },
+            {
+              "id": "sec-installations",
+              "sectionType": "installations",
+              "name": "Installations",
+              "visible": true,
+              "content": {
+                "heading": "Thousands of Installations Across Florida",
+                "beforeImage": "/homepage/project-before.jpg",
+                "beforeAlt": "Worn wood fence before replacement",
+                "beforeCaption": "Before",
+                "afterImage": "/homepage/project-after.jpg",
+                "afterAlt": "New white vinyl privacy fence after installation",
+                "afterCaption": "After",
+                "reviewsNote": "[Fence Outlet's existing Customer Reviews widget stays here]"
+              },
+              "settings": {
+                "backgroundType": "none"
+              }
+            },
+            {
+              "id": "sec-footer",
+              "sectionType": "site-footer",
+              "name": "Site Footer",
+              "visible": true,
+              "content": {
+                "logoSrc": "/homepage/logo-fence-outlet.png",
+                "logoAlt": "Fence Outlet home",
+                "blurb": "Central Florida's fencing expert for over 30 years. Locally owned and operated.",
+                "quoteLabel": "Get a Free Quote",
+                "columns": [
+                  {
+                    "label": "Fence Types",
+                    "links": [
+                      {
+                        "label": "Vinyl",
+                        "url": "https://www.fenceoutlet.com/vinyl-fencing/"
+                      },
+                      {
+                        "label": "Wood",
+                        "url": "https://www.fenceoutlet.com/wood-fencing/"
+                      },
+                      {
+                        "label": "Aluminum",
+                        "url": "https://www.fenceoutlet.com/aluminum-fencing/"
+                      },
+                      {
+                        "label": "Chain Link",
+                        "url": "https://www.fenceoutlet.com/chain-link-fencing/"
+                      },
+                      {
+                        "label": "Fence in a Box",
+                        "url": "https://www.fenceoutlet.com/fence/fence-in-a-box/"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Services",
+                    "links": [
+                      {
+                        "label": "Professional Installation",
+                        "url": "https://www.fenceoutlet.com/professional-installation/"
+                      },
+                      {
+                        "label": "Financing",
+                        "url": "https://www.fenceoutlet.com/professional-fence-financing/"
+                      },
+                      {
+                        "label": "Get a Quote",
+                        "url": "#quote"
+                      },
+                      {
+                        "label": "Customer Service",
+                        "url": "https://www.fenceoutlet.com/customer-service/"
+                      },
+                      {
+                        "label": "Contact Us",
+                        "url": "https://www.fenceoutlet.com/contact-us/"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Galleries",
+                    "links": [
+                      {
+                        "label": "Before & After",
+                        "url": "https://www.fenceoutlet.com/before-after/"
+                      },
+                      {
+                        "label": "Vinyl Fencing",
+                        "url": "https://www.fenceoutlet.com/vinyl-fencing-gallery/"
+                      },
+                      {
+                        "label": "Wood Fencing",
+                        "url": "https://www.fenceoutlet.com/wood-fencing-gallery/"
+                      },
+                      {
+                        "label": "Aluminum Fencing",
+                        "url": "https://www.fenceoutlet.com/aluminum-fencing-gallery/"
+                      },
+                      {
+                        "label": "Chain Link Fencing",
+                        "url": "https://www.fenceoutlet.com/chain-link-fencing-gallery/"
+                      },
+                      {
+                        "label": "Steel Fencing",
+                        "url": "https://www.fenceoutlet.com/steel-fencing-gallery/"
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Company",
+                    "links": [
+                      {
+                        "label": "About Us",
+                        "url": "https://www.fenceoutlet.com/about-us/"
+                      },
+                      {
+                        "label": "Testimonials",
+                        "url": "https://www.fenceoutlet.com/testimonials/"
+                      },
+                      {
+                        "label": "FAQ",
+                        "url": "https://www.fenceoutlet.com/faq/"
+                      },
+                      {
+                        "label": "Blog",
+                        "url": "https://www.fenceoutlet.com/blog/"
+                      },
+                      {
+                        "label": "Careers",
+                        "url": "https://www.fenceoutlet.com/careers/"
+                      }
+                    ]
+                  }
+                ],
+                "locationsHeading": "8 Florida Locations",
+                "hours": "Monday–Friday 8AM–5PM · Saturday 8AM–4PM · Sunday Closed",
+                "bbbUrl": "https://www.bbb.org/central-florida/business-reviews/fencecontractors/fence-outlet-of-oviedo-in-oviedo-fl-90404640#sealclick",
+                "bbbImage": "/homepage/bbb-seal.png",
+                "bbbAlt": "Fence Outlet of Oviedo Better Business Bureau profile",
+                "license": "Certified Licensed Contractor, fully insured.\nLicense # C-10252 & C-10803",
+                "copyright": "Fence Outlet. All rights reserved.",
+                "privacyLabel": "Privacy Policy",
+                "privacyUrl": "https://www.fenceoutlet.com/privacy-policy/",
+                "socials": [
+                  {
+                    "label": "Fence Outlet on Facebook",
+                    "url": "https://www.facebook.com/FenceOutletInc"
+                  },
+                  {
+                    "label": "Fence Outlet on YouTube",
+                    "url": "https://www.youtube.com/channel/UCsgsYc4gbODA7MgYvTtWGUw/"
+                  }
+                ]
+              },
+              "settings": {
+                "backgroundType": "none"
               }
             }
           ]

@@ -21,7 +21,9 @@ import {
   getPublicForm,
   resolveDocument,
 } from '@/lib/cms';
-import { getSiteSettings } from '@/lib/site-settings';
+import { isFencePage, pageStateFromSections } from '@/src/homepage/content';
+import { HomePage, homeFontClassName } from '@/src/homepage/home-page';
+import { PageFrame } from '@/src/homepage/page-state';
 
 export const revalidate = 300;
 
@@ -114,6 +116,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { path } = await params;
   const urlPath = path && path.length ? `/${path.join('/')}` : '/';
   if (isAdminPath(urlPath)) return {};
+  if (urlPath === '/') {
+    const result = await getCachedPageMetadata(urlPath);
+    const title = result && typeof result === 'object' && 'title' in result ? result.title : undefined;
+    const titleText = typeof title === 'string' ? title : '';
+    if (titleText && titleText !== 'Home' && titleText !== 'fence-outlet') return result;
+    return {
+      title: 'Fence Materials & Professional Installation | Fence Outlet',
+      description:
+        'Fence materials and professional installation from Fence Outlet. 30+ years, 8 Florida locations, licensed and insured.',
+    };
+  }
   const result = await getCachedPageMetadata(urlPath);
   // cms-core composes a Next.js-compatible metadata object server-side, so we
   // can spread it directly instead of re-deriving OG/Twitter/robots tags.
@@ -128,22 +141,12 @@ export default async function CatchAllPage({ params, searchParams }: PageProps) 
   const { preview } = await searchParams;
   const urlPath = path && path.length ? `/${path.join('/')}` : '/';
   if (isAdminPath(urlPath)) notFound();
-  const [result, siteSettings] = await Promise.all([
-    preview ? resolveDocument(urlPath, preview) : getCachedPublishedDocument(urlPath),
-    getSiteSettings(),
-  ]);
+  const result = preview
+    ? await resolveDocument(urlPath, preview)
+    : await getCachedPublishedDocument(urlPath);
 
   if (!result?.data) {
-    if (urlPath === '/') {
-      return (
-        <main className="flex min-h-screen flex-col items-center justify-center p-8 text-center">
-          <h1 className="mb-4 text-4xl font-bold">{siteSettings?.siteName ?? 'Welcome'}</h1>
-          <p className="mb-8 text-lg text-gray-600">
-            Your site is running. Create a page with slug &quot;home&quot; in the CMS to replace this message.
-          </p>
-        </main>
-      );
-    }
+    if (urlPath === '/') return <HomePage />;
     if (!preview) void reportPublic404(urlPath);
     notFound();
   }
@@ -179,6 +182,39 @@ export default async function CatchAllPage({ params, searchParams }: PageProps) 
   // image on the page is eager/high-priority; everything else lazy-loads.
   const lcp = createLcpController();
   const pageOptions = { ...renderOptions, lcp, prefetchedForms };
+
+  if (urlPath === '/' && isFencePage(sections)) {
+    const state = pageStateFromSections(sections);
+    const header = sections.filter((section) => section.sectionType === 'site-header');
+    const footer = sections.filter((section) => section.sectionType === 'site-footer');
+    const body = sections.filter((section) => section.sectionType !== 'site-header' && section.sectionType !== 'site-footer');
+    return (
+      <>
+        {result.jsonLd ? (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(result.jsonLd).replace(/</g, '\u003c'),
+            }}
+          />
+        ) : null}
+        {result.preview?.active && (
+          <div className="bg-amber-100 px-4 py-2 text-center text-sm text-amber-900">
+            Preview mode — you are viewing a draft. This page is not publicly visible.
+          </div>
+        )}
+        <PageFrame className={homeFontClassName} {...state}>
+          <Sections sections={header} ctx={ctx} options={pageOptions} />
+          <main id="main">
+            <Sections sections={body} ctx={ctx} options={pageOptions} />
+          </main>
+          <Sections sections={footer} ctx={ctx} options={pageOptions} />
+        </PageFrame>
+      </>
+    );
+  }
+
+  if (urlPath === '/') return <HomePage />;
 
   return (
     <main className="min-h-screen bg-white">

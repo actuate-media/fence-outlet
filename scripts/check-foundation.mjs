@@ -95,15 +95,11 @@ const siteLayoutRel = 'app/(site)/layout.tsx';
 const siteLayout = await readFile(path.join(root, siteLayoutRel), 'utf8');
 if (!siteLayout.includes('fence-outlet')) fail(`${siteLayoutRel} does not contain fence-outlet`);
 if (siteLayout.includes('> . <')) fail(`${siteLayoutRel} still contains a '.' brand mark`);
-if (siteLayout.includes('{new Date().getFullYear()} .')) {
-  fail(`${siteLayoutRel} still contains a '.' copyright`);
-}
 if (!siteLayout.includes("title: 'fence-outlet'")) fail(`${siteLayoutRel} tab title is not fence-outlet`);
-const headerBrand = siteLayout.match(
-  /<a href="\/" className="text-lg font-medium text-zinc-900">\s*([^<\s]+)\s*<\/a>/,
-);
-if (headerBrand?.[1] !== 'fence-outlet') fail(`${siteLayoutRel} header brand is not fence-outlet`);
-const copyrightName = siteLayout.match(/&copy; \{new Date\(\)\.getFullYear\(\)\} ([^\s<]+)/);
-if (copyrightName?.[1] !== 'fence-outlet') fail(`${siteLayoutRel} footer copyright is not fence-outlet`);
+const homepage = await readFile(path.join(root, 'src/homepage/content.ts'), 'utf8');
+if (!homepage.includes('Fence Outlet home')) fail('homepage is missing the Fence Outlet logo');
+if (!homepage.includes('Fence Outlet. All rights reserved.')) {
+  fail('homepage is missing the Fence Outlet copyright');
+}
 
 console.log('foundation contract ok');
