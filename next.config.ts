@@ -1,6 +1,5 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import webpack from 'webpack';
 import type { NextConfig } from 'next';
 import { withPrentaCMS } from '@prenta/core/next';
 import config from './prenta.config';
@@ -33,7 +32,7 @@ const nextConfig: NextConfig = {
   // makes that build exit before compiling.
   turbopack: {},
   // Client compiler only. Server and edge keep the real Node modules.
-  webpack: (webpackConfig, { isServer }) => {
+  webpack: (webpackConfig, { isServer, webpack }) => {
     if (!isServer) {
       webpackConfig.resolve ??= {};
       const current = webpackConfig.resolve.alias;
@@ -55,7 +54,7 @@ const nextConfig: NextConfig = {
       // `node:` requests fail as an unhandled scheme before fallback resolution.
       webpackConfig.plugins ??= [];
       webpackConfig.plugins.push(
-        new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
+        new webpack.NormalModuleReplacementPlugin(/^node:/, (resource: { request: string }) => {
           resource.request = nodeBuiltinStub;
         }),
       );
