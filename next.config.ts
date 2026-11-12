@@ -28,9 +28,6 @@ const CLIENT_NODE_BUILTINS = [
 ] as const;
 
 const nextConfig: NextConfig = {
-  // `next build` defaults to Turbopack. A webpack hook without this key
-  // makes that build exit before compiling.
-  turbopack: {},
   // Client compiler only. Server and edge keep the real Node modules.
   webpack: (webpackConfig, { isServer, webpack }) => {
     if (!isServer) {

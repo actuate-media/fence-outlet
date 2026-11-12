@@ -33,7 +33,7 @@ import '@prenta/sections-react/styles.css';
 export async function generateMetadata(): Promise<Metadata> {
   const base: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
-    title: '.',
+    title: 'fence-outlet',
     description: 'Powered by Prenta CMS',
   };
   try {
@@ -117,7 +117,7 @@ export default async function SiteLayout({
         <header className="border-b border-zinc-200">
           <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
             <a href="/" className="text-lg font-medium text-zinc-900">
-              .
+              fence-outlet
             </a>
             {headerNav && headerNav.items.length > 0 && <SiteNav items={headerNav.items} />}
           </div>
@@ -126,7 +126,7 @@ export default async function SiteLayout({
         {footerNav && footerNav.items.length > 0 && (
           <footer className="border-t border-zinc-200">
             <div className="mx-auto flex max-w-5xl flex-col gap-2 px-4 py-6 text-sm text-zinc-600 sm:flex-row sm:items-center sm:justify-between">
-              <span>&copy; {new Date().getFullYear()} .</span>
+              <span>&copy; {new Date().getFullYear()} fence-outlet</span>
               <SiteNav items={footerNav.items} ariaLabel="Footer" />
             </div>
           </footer>

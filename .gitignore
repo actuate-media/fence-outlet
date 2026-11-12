@@ -14,3 +14,6 @@ dist/
 
 # Throwaway manifest written by `npm run blocks:diff`.
 .prenta-blocks.next.json
+.worktrees/
+generated/
+next-env.d.ts

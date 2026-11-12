@@ -1,5 +1,5 @@
 {
-  "buildCommand": "prisma generate && node scripts/deploy-migrate.mjs && next build",
+  "buildCommand": "prisma generate && node scripts/deploy-migrate.mjs && next build --webpack",
   "framework": "nextjs",
   "functions": {
     "app/api/cms/**/*.ts": {
