@@ -17,7 +17,7 @@ assertServingOriginConfigured({
  * Tag-based caching for public CMS reads + on-demand invalidation after writes.
  * See https://prentacms.dev/docs/caching — mirrors apps/dev production wiring.
  */
-export const handler = handlePrentaAPI({
+const handler = handlePrentaAPI({
   prismaClient: getPrisma(),
   config: {
     ...config,

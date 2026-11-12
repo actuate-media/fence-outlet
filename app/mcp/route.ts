@@ -1,6 +1,6 @@
 import { authorizeMcpRequest } from '@prenta/core/api';
 import { handleMcpHttp } from '@prenta/mcp-server';
-import { handler as cms } from '../api/cms/[[...cms]]/route';
+import { GET as cms } from '../api/cms/[[...cms]]/route';
 
 async function handle(request: Request): Promise<Response> {
   const auth = await authorizeMcpRequest(request);
