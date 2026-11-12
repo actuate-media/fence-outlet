@@ -1,0 +1,22 @@
+{
+  "name": "fence-outlet",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fence Outlet website powered by Next.js and Prenta CMS",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "dependencies": {
+    "@prenta/core": "8.18.4",
+    "@prenta/sections-react": "0.20.11",
+    "next": "16.4.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  }
+}
