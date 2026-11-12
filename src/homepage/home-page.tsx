@@ -1,5 +1,6 @@
 import { Barlow, Barlow_Condensed } from 'next/font/google';
 import { Homepage } from './Homepage';
+import type { InitialStore } from './store-choice';
 
 const bodyFont = Barlow({
   subsets: ['latin'],
@@ -18,6 +19,6 @@ const displayFont = Barlow_Condensed({
 
 export const homeFontClassName = `${bodyFont.variable} ${displayFont.variable}`;
 
-export function HomePage() {
-  return <Homepage fontClassName={homeFontClassName} />;
+export function HomePage({ initialStore }: { initialStore?: InitialStore }) {
+  return <Homepage fontClassName={homeFontClassName} initialStore={initialStore} />;
 }

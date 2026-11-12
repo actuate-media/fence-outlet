@@ -24,6 +24,7 @@ import {
 import { isFencePage, pageStateFromSections } from '@/src/homepage/content';
 import { HomePage, homeFontClassName } from '@/src/homepage/home-page';
 import { PageFrame } from '@/src/homepage/page-state';
+import { resolveInitialStore } from '@/src/homepage/store-request';
 
 export const revalidate = 300;
 
@@ -135,6 +136,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function CatchAllPage({ params, searchParams }: PageProps) {
   const { path } = await params;
+  const initialStore = await resolveInitialStore();
   // Editors arrive with `?preview=<signed token>` (admin "View on site" /
   // inline site preview). Forwarding it to /resolve renders the draft at its
   // real URL; without a valid token only PUBLISHED content resolves.
@@ -146,7 +148,7 @@ export default async function CatchAllPage({ params, searchParams }: PageProps) 
     : await getCachedPublishedDocument(urlPath);
 
   if (!result?.data) {
-    if (urlPath === '/') return <HomePage />;
+    if (urlPath === '/') return <HomePage initialStore={initialStore} />;
     if (!preview) void reportPublic404(urlPath);
     notFound();
   }
@@ -203,7 +205,7 @@ export default async function CatchAllPage({ params, searchParams }: PageProps) 
             Preview mode — you are viewing a draft. This page is not publicly visible.
           </div>
         )}
-        <PageFrame className={homeFontClassName} {...state}>
+        <PageFrame className={homeFontClassName} initialStore={initialStore} {...state}>
           <Sections sections={header} ctx={ctx} options={pageOptions} />
           <main id="main">
             <Sections sections={body} ctx={ctx} options={pageOptions} />
@@ -214,7 +216,7 @@ export default async function CatchAllPage({ params, searchParams }: PageProps) 
     );
   }
 
-  if (urlPath === '/') return <HomePage />;
+  if (urlPath === '/') return <HomePage initialStore={initialStore} />;
 
   return (
     <main className="min-h-screen bg-white">

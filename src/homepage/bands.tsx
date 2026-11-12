@@ -9,6 +9,7 @@ import {
   locationsContent,
   trustContent,
 } from './content';
+import { storeSlug } from './data';
 import { SectionRoot, usePageState } from './page-state';
 
 function FacebookIcon() {
@@ -115,7 +116,6 @@ export function FinancingBand({ content }: { content?: unknown }) {
 
 export function LocationsBand({ content }: { content?: unknown }) {
   const copy = locationsContent(content);
-  const { zipReady, nearestName } = usePageState();
   return (
     <SectionRoot>
       <section id="locations" className="fo-section">
@@ -123,10 +123,10 @@ export function LocationsBand({ content }: { content?: unknown }) {
           <h2>{copy.heading}</h2>
           <div className="fo-locations">
             {copy.stores.map((store) => (
-              <div className={zipReady && store.name === nearestName ? 'fo-location is-nearest' : 'fo-location'} key={store.name}>
+              <div className="fo-location" key={store.name}>
                 <a href={store.url}><h3>{store.fullName}</h3></a>
                 <span>{store.address}</span>
-                <a className="fo-tel" href={store.tel}>{store.phone}</a>
+                <a className="fo-tel ctm-phone" data-store={storeSlug(store)} href={store.tel}>{store.phone}</a>
               </div>
             ))}
           </div>
@@ -194,7 +194,7 @@ export function FooterBand({ content }: { content?: unknown }) {
               {stores.map((store) => (
                 <div key={store.name}>
                   <a href={store.url} style={{ fontWeight: 700 }}>{store.name}</a>
-                  <a className="fo-tel" href={store.tel}>{store.phone}</a>
+                  <a className="fo-tel ctm-phone" data-store={store.slug} href={store.tel}>{store.phone}</a>
                 </div>
               ))}
             </div>

@@ -44,13 +44,16 @@ function PhoneIcon() {
 
 export function SiteHeader({ content }: { content?: unknown }) {
   const copy = headerContent(content);
-  const { stores, materials, boxes, zipReady, nearest, nearestName, choosePath, setMenuOpen } = usePageState();
+  const { stores, materials, boxes, storeMarked, storeSourceText, storeLive, nearest, nearestName, pickStore, setZip, zip, choosePath, setMenuOpen } = usePageState();
   const [menu, setMenu] = useState<MenuKey | null>(null);
   const [drawer, setDrawer] = useState(false);
+  const [picker, setPicker] = useState(false);
   const [section, setSection] = useState<MenuKey | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const pickerButtonRef = useRef<HTMLButtonElement>(null);
+  const pickerRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<number | null>(null);
   const triggers = useRef<Partial<Record<MenuKey, HTMLButtonElement | null>>>({});
 
@@ -61,8 +64,12 @@ export function SiteHeader({ content }: { content?: unknown }) {
   useEffect(() => {
     const desktopQuery = window.matchMedia('(min-width: 1080px)');
     const sync = () => {
-      if (desktopQuery.matches) setDrawer(false);
-      else setMenu(null);
+      if (desktopQuery.matches) {
+        setDrawer(false);
+      } else {
+        setMenu(null);
+        setPicker(false);
+      }
     };
     sync();
     desktopQuery.addEventListener('change', sync);
@@ -76,6 +83,18 @@ export function SiteHeader({ content }: { content?: unknown }) {
     };
   }, [drawer]);
 
+  useEffect(() => {
+    if (!picker) return;
+    function onPointerDown(event: PointerEvent) {
+      const target = event.target;
+      if (target instanceof Node && pickerRef.current?.contains(target)) return;
+      setPicker(false);
+      pickerButtonRef.current?.focus();
+    }
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, [picker]);
+
   function cancelClose() {
     if (closeTimer.current !== null) window.clearTimeout(closeTimer.current);
   }
@@ -87,6 +106,7 @@ export function SiteHeader({ content }: { content?: unknown }) {
 
   function openMenu(key: MenuKey, trigger?: HTMLButtonElement | null) {
     cancelClose();
+    setPicker(false);
     if (trigger) triggers.current[key] = trigger;
     if (window.innerWidth >= 1080) setMenu(key);
   }
@@ -94,11 +114,19 @@ export function SiteHeader({ content }: { content?: unknown }) {
   function toggleMenu(key: MenuKey, event: MouseEvent<HTMLButtonElement>) {
     const keyboard = event.detail === 0;
     triggers.current[key] = event.currentTarget;
+    setPicker(false);
     if (window.innerWidth < 1080 || keyboard) {
       setMenu((current) => (current === key ? null : key));
       return;
     }
     setMenu(key);
+  }
+
+  function chooseStore(name: string) {
+    const wasOpen = picker;
+    pickStore(name);
+    setPicker(false);
+    if (wasOpen) pickerButtonRef.current?.focus();
   }
 
   function choose(next: 'install' | 'diy') {
@@ -109,7 +137,7 @@ export function SiteHeader({ content }: { content?: unknown }) {
 
   function trapDrawer(event: KeyboardEvent<HTMLDivElement>) {
     if (!drawer || event.key !== 'Tab' || !drawerRef.current) return;
-    const items = [...drawerRef.current.querySelectorAll<HTMLElement>('a, button')].filter(
+    const items = [...drawerRef.current.querySelectorAll<HTMLElement>('a, button, select')].filter(
       (item) => !item.closest('[hidden]'),
     );
     if (items.length === 0) return;
@@ -171,6 +199,12 @@ export function SiteHeader({ content }: { content?: unknown }) {
         }}
         onKeyDown={(event) => {
           if (event.key !== 'Escape') return;
+          if (picker) {
+            event.preventDefault();
+            setPicker(false);
+            pickerButtonRef.current?.focus();
+            return;
+          }
           if (drawer) {
             event.preventDefault();
             setDrawer(false);
@@ -292,10 +326,10 @@ export function SiteHeader({ content }: { content?: unknown }) {
             <div className="fo-menu-inner">
               <div className="fo-store-grid" style={{ flex: '3 1 640px', gap: 10, gridTemplateColumns: 'repeat(auto-fill, minmax(min(215px, 100%), 1fr))' }}>
                 {stores.map((store) => (
-                  <div key={store.name} style={{ padding: '12px 14px', borderRadius: 'var(--radius-lg)', border: `1px solid ${zipReady && store.name === nearestName ? 'var(--fo-orange-500)' : 'var(--border-default)'}`, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  <div key={store.name} className="fo-menu-store" style={{ borderColor: storeMarked && store.name === nearestName ? 'var(--fo-orange-500)' : 'var(--border-default)' }}>
                     <a href={store.url} className="fo-mat-name" style={{ margin: 0, fontSize: 22, lineHeight: 1.15 }}>{store.fullName}</a>
                     <span style={{ fontSize: 14 }}>{store.address}</span>
-                    <a className="fo-tel" href={store.tel}>{store.phone}</a>
+                    <a className="fo-tel ctm-phone" data-store={store.slug} href={store.tel}>{store.phone}</a>
                   </div>
                 ))}
               </div>
@@ -311,12 +345,63 @@ export function SiteHeader({ content }: { content?: unknown }) {
           </div>
         )}
         {menu && <div className="fo-scrim" aria-hidden="true" />}
-        <a className="fo-phone" href={nearest.tel}>
-          <span>{nearest.name} store</span>
-          <span>{nearest.phone}</span>
-        </a>
+        <div ref={pickerRef} className="fo-store" onMouseEnter={() => setMenu(null)}>
+          <button
+            ref={pickerButtonRef}
+            type="button"
+            className={picker ? 'fo-store-trigger is-open' : 'fo-store-trigger'}
+            aria-expanded={picker}
+            aria-controls="store-picker"
+            onClick={() => {
+              setPicker((open) => !open);
+              setMenu(null);
+            }}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            Your store: <span>{nearest.name}</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <a className="fo-store-phone ctm-phone" data-store={nearest.slug} href={nearest.tel}>{nearest.phone}</a>
+          {picker ? (
+            <div id="store-picker" role="dialog" aria-label="Choose your store" className="fo-store-panel">
+              <div className="fo-store-title">Choose Your Store</div>
+              <p className="fo-store-help">{storeSourceText}</p>
+              <label className="fo-store-zip">
+                Find by ZIP code
+                <input type="text" inputMode="numeric" maxLength={5} autoComplete="postal-code" value={zip} onChange={(event) => setZip(event.target.value)} />
+              </label>
+              <ul aria-label="Stores">
+                {stores.map((store) => (
+                  <li key={store.name}>
+                    <button type="button" aria-pressed={store.name === nearestName} className={store.name === nearestName ? 'is-current' : undefined} onClick={() => chooseStore(store.name)}>
+                      <span>
+                        <strong>{store.fullName}</strong>
+                        <em>{store.address}</em>
+                      </span>
+                      <b>{store.phone}</b>
+                      <i aria-hidden="true">
+                        {store.name === nearestName ? (
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M20 6 9 17l-5-5" />
+                          </svg>
+                        ) : null}
+                      </i>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <p className="fo-store-note">All stores: Mon–Fri 8AM–5PM · Sat 8AM–4PM · Sun Closed. We'll remember your store on this device.</p>
+            </div>
+          ) : null}
+        </div>
+        <p className="fo-sr" aria-live="polite">{storeLive}</p>
         <div className="fo-mobile-tools">
-          <a className="fo-call" href={nearest.tel} aria-label={`Call Fence Outlet ${nearest.name} at ${nearest.phone}`}>
+          <a className="fo-call ctm-phone" data-store={nearest.slug} href={nearest.tel} aria-label={`Call Fence Outlet ${nearest.name} at ${nearest.phone}`}>
             <PhoneIcon />
             Call <span className="fo-call-long">{nearest.phone}</span><span className="fo-call-short">{nearest.name}</span>
           </a>
@@ -328,6 +413,15 @@ export function SiteHeader({ content }: { content?: unknown }) {
               {drawer ? 'Close' : 'Menu'}
             </button>
             <nav id="mobile-menu" className="fo-drawer" aria-label="Main" hidden={!drawer}>
+              <label className="fo-drawer-store">
+                Your store
+                <select value={nearestName} onChange={(event) => pickStore(event.target.value)}>
+                  {stores.map((store) => (
+                    <option key={store.name} value={store.name}>{store.fullName} · {store.phone}</option>
+                  ))}
+                </select>
+                <span>{storeSourceText}</span>
+              </label>
               {drawerSections.map((item) => (
                 <div className="fo-acc" key={item.key}>
                   <button type="button" className={section === item.key ? 'fo-acc-btn is-open' : 'fo-acc-btn'} aria-expanded={section === item.key} aria-controls={`drawer-${item.key}`} onClick={() => setSection((current) => (current === item.key ? null : item.key))}>

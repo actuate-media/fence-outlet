@@ -3,15 +3,16 @@
 import { FenceBoxBand, FenceTypesBand, FinancingBand, FooterBand, InstallationsBand, LocationsBand, TrustBand } from './bands';
 import { pageStateFromSections, type CmsSection } from './content';
 import { PageFrame } from './page-state';
+import type { InitialStore } from './store-choice';
 import { QuoteHero } from './quote-hero';
 import { SiteHeader } from './site-header';
 import './homepage.css';
 
-export function Homepage({ fontClassName, sections }: { fontClassName: string; sections?: CmsSection[] }) {
+export function Homepage({ fontClassName, sections, initialStore }: { fontClassName: string; sections?: CmsSection[]; initialStore?: InitialStore }) {
   const state = pageStateFromSections(sections ?? []);
   const contentFor = (type: string) => sections?.find((section) => section.sectionType === type)?.content;
   return (
-    <PageFrame className={fontClassName} {...state}>
+    <PageFrame className={fontClassName} initialStore={initialStore} {...state}>
       <SiteHeader content={contentFor('site-header')} />
       <main id="main">
         <TrustBand content={contentFor('trust-band')} />

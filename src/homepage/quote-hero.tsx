@@ -76,7 +76,7 @@ function HeroTab({
 export function QuoteHero({ content }: { content?: unknown }) {
   const copy = heroContent(content);
   const smsConsent = smsCopy();
-  const { stores, zip, setZip, zipReady, nearest, nearestName, path, choosePath, menuOpen } = usePageState();
+  const { stores, zip, setZip, nearest, nearestName, nearestLabel, path, choosePath, menuOpen } = usePageState();
   const [active, setActive] = useState<number | null>(null);
   const [playing, setPlaying] = useState(true);
   const [pickup, setPickup] = useState(nearestName);
@@ -84,7 +84,7 @@ export function QuoteHero({ content }: { content?: unknown }) {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [alertMessage, setAlertMessage] = useState('');
   const [sending, setSending] = useState(false);
-  const [submitted, setSubmitted] = useState<{ name: string; phone: string; tel: string } | null>(null);
+  const [submitted, setSubmitted] = useState<{ name: string; phone: string; tel: string; slug: string } | null>(null);
   const [live, setLive] = useState('');
   const attempted = useRef(false);
   const lastPath = useRef<Path>(path);
@@ -107,8 +107,8 @@ export function QuoteHero({ content }: { content?: unknown }) {
   }, [path]);
 
   useEffect(() => {
-    if (zipReady) setPickup(nearestName);
-  }, [zipReady, nearestName]);
+    setPickup(nearestName);
+  }, [nearestName]);
 
   useEffect(() => {
     const desktopQuery = window.matchMedia('(min-width: 1080px)');
@@ -197,7 +197,7 @@ export function QuoteHero({ content }: { content?: unknown }) {
     const store = path === 'diy' ? stores.find((item) => item.name === pickup) ?? nearest : nearest;
     window.setTimeout(() => {
       setSending(false);
-      setSubmitted({ name: store.fullName, phone: store.phone, tel: store.tel });
+      setSubmitted({ name: store.fullName, phone: store.phone, tel: store.tel, slug: store.slug });
       setLive(`Thanks! The Fence Outlet ${store.fullName} team will contact you shortly.`);
     }, 400);
   }
@@ -217,7 +217,7 @@ export function QuoteHero({ content }: { content?: unknown }) {
           {submitted ? (
             <>
               <p className="fo-success" role="status">Thanks! The Fence Outlet {submitted.name} team will contact you shortly.</p>
-              <a className="fo-tel" href={submitted.tel}>{submitted.phone}</a>
+              <a className="fo-tel ctm-phone" data-store={submitted.slug} href={submitted.tel}>{submitted.phone}</a>
             </>
           ) : (
             <>
@@ -250,8 +250,8 @@ export function QuoteHero({ content }: { content?: unknown }) {
                   </label>
                 ) : (
                   <div className="fo-readonly">
-                    Your nearest store
-                    <span>{zipReady ? `${nearest.name} · ${nearest.phone}` : 'Enter your ZIP'}</span>
+                    Your store
+                    <span>{nearestLabel}</span>
                     <input type="hidden" name="pickup" value={nearest.name} />
                   </div>
                 )}
@@ -312,7 +312,7 @@ export function QuoteHero({ content }: { content?: unknown }) {
                 {index === 2 ? (
                   <div className="fo-phones">
                     {stores.map((store) => (
-                      <a key={store.name} href={store.tel}><span>{store.name}</span><span>{store.phone}</span></a>
+                      <a key={store.name} className="ctm-phone" data-store={store.slug} href={store.tel}><span>{store.name}</span><span>{store.phone}</span></a>
                     ))}
                   </div>
                 ) : (

@@ -129,6 +129,50 @@ export function nearestStoreName(zip: string): StoreName {
   return zipMap[zip.slice(0, 3)] ?? 'Orlando';
 }
 
+const storePoints: Record<StoreName, { lat: number; lng: number }> = {
+  Orlando: { lat: 28.4158, lng: -81.4037 },
+  Oviedo: { lat: 28.6698, lng: -81.2084 },
+  Daytona: { lat: 29.1654, lng: -81.0003 },
+  Melbourne: { lat: 28.0784, lng: -80.6081 },
+  Tampa: { lat: 27.9472, lng: -82.3265 },
+  'North Port': { lat: 27.0155, lng: -82.2286 },
+  'Port Richey': { lat: 28.2867, lng: -82.7201 },
+  Jacksonville: { lat: 30.3398, lng: -81.7326 },
+};
+
+function distanceMiles(lat: number, lng: number, point: { lat: number; lng: number }): number {
+  const toRad = (degrees: number) => (degrees * Math.PI) / 180;
+  const dLat = toRad(point.lat - lat);
+  const dLng = toRad(point.lng - lng);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat)) * Math.cos(toRad(point.lat)) * Math.sin(dLng / 2) ** 2;
+  return 3958.8 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+export function nearestStoreByPoint(lat: number, lng: number): StoreName {
+  let closest: StoreName = 'Orlando';
+  let best = Number.POSITIVE_INFINITY;
+  for (const store of stores) {
+    const miles = distanceMiles(lat, lng, storePoints[store.name]);
+    if (miles < best) {
+      best = miles;
+      closest = store.name;
+    }
+  }
+  return closest;
+}
+
+export function storeSlug(store: { name: string; url?: string }): string {
+  const fromUrl = store.url?.match(/fence-company-([^/]+)\/?$/)?.[1];
+  if (fromUrl) return fromUrl;
+  const known = stores.find((item) => item.name === store.name);
+  return known?.url.match(/fence-company-([^/]+)\/?$/)?.[1] ?? 'orlando';
+}
+
+export function storeNameFromSlug(slug: string): StoreName | null {
+  const store = stores.find((item) => storeSlug(item) === slug);
+  return store?.name ?? null;
+}
+
 export function storeByName(name: StoreName): Store {
   const store = stores.find((item) => item.name === name);
   if (!store) {
