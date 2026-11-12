@@ -1,0 +1,183 @@
+{
+  "globals": {
+    "site-settings": {
+      "siteName": "My Site",
+      "description": "A marketing site powered by Prenta CMS."
+    }
+  },
+  "collections": {
+    "forms": [
+      {
+        "status": "PUBLISHED",
+        "data": {
+          "name": "Contact",
+          "title": "Contact",
+          "slug": "contact",
+          "status": "active",
+          "fields": [
+            {
+              "id": "contact-name",
+              "key": "name",
+              "label": "Name",
+              "type": "text",
+              "required": true,
+              "sortOrder": 0
+            },
+            {
+              "id": "contact-email",
+              "key": "email",
+              "label": "Email",
+              "type": "email",
+              "required": true,
+              "sortOrder": 1
+            },
+            {
+              "id": "contact-message",
+              "key": "message",
+              "label": "Message",
+              "type": "textarea",
+              "required": true,
+              "sortOrder": 2
+            }
+          ],
+          "successMessage": "Thanks — we'll be in touch soon."
+        }
+      }
+    ],
+    "pages": [
+      {
+        "status": "PUBLISHED",
+        "data": {
+          "title": "Home",
+          "slug": "home",
+          "path": "/",
+          "sections": [
+            {
+              "id": "sec-hero",
+              "sectionType": "hero",
+              "name": "Hero Banner",
+              "visible": true,
+              "content": {
+                "eyebrow": "Launching soon",
+                "heading": "Marketing sites your editors can actually edit",
+                "body": "Author every section of this page in the admin — copy, pricing, stats, and calls to action — and publish without a deploy.",
+                "primaryButtonLabel": "Get Started",
+                "primaryButtonUrl": "/contact",
+                "secondaryButtonLabel": "See pricing",
+                "secondaryButtonUrl": "#pricing"
+              },
+              "settings": {
+                "backgroundType": "solid",
+                "backgroundColor": "purple",
+                "paddingY": "xl"
+              }
+            },
+            {
+              "id": "sec-stats",
+              "sectionType": "stats",
+              "name": "By the Numbers",
+              "visible": true,
+              "content": {
+                "heading": "By the numbers",
+                "body": "",
+                "stats": [
+                  {
+                    "value": "99.99%",
+                    "label": "Uptime",
+                    "description": ""
+                  },
+                  {
+                    "value": "124ms",
+                    "label": "Avg response time",
+                    "description": ""
+                  },
+                  {
+                    "value": "3M+",
+                    "label": "Requests served",
+                    "description": ""
+                  }
+                ]
+              },
+              "settings": {
+                "backgroundType": "none",
+                "paddingY": "lg"
+              }
+            },
+            {
+              "id": "sec-pricing",
+              "sectionType": "pricing",
+              "name": "Pricing Table",
+              "visible": true,
+              "content": {
+                "heading": "Simple, transparent pricing",
+                "plans": [
+                  {
+                    "name": "Starter",
+                    "price": "$29/mo",
+                    "description": "For new projects finding their footing."
+                  },
+                  {
+                    "name": "Pro",
+                    "price": "$79/mo",
+                    "description": "For growing teams that ship every week."
+                  },
+                  {
+                    "name": "Enterprise",
+                    "price": "Custom",
+                    "description": "Security review, SSO, and a dedicated SLA."
+                  }
+                ]
+              },
+              "settings": {
+                "backgroundType": "none",
+                "paddingY": "xl"
+              }
+            },
+            {
+              "id": "sec-cta",
+              "sectionType": "cta",
+              "name": "CTA Banner",
+              "visible": true,
+              "content": {
+                "heading": "Ready to get started?",
+                "body": "Spin up your site and hand the keys to your editors.",
+                "buttonLabel": "Start Building",
+                "buttonUrl": "/contact"
+              },
+              "settings": {
+                "backgroundType": "solid",
+                "backgroundColor": "purple",
+                "paddingY": "xl"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "status": "PUBLISHED",
+        "data": {
+          "title": "Contact",
+          "slug": "contact",
+          "path": "/contact",
+          "sections": [
+            {
+              "id": "sec-contact-form",
+              "sectionType": "form",
+              "name": "Contact Form",
+              "visible": true,
+              "content": {
+                "heading": "Get in touch",
+                "description": "Send us a message — submissions land in Admin → Forms and can forward to your CRM via Zapier.",
+                "formSlug": "contact"
+              },
+              "settings": {
+                "backgroundType": "none",
+                "paddingY": "lg"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

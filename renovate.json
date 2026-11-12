@@ -1,0 +1,46 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "schedule": [
+    "before 6am on monday"
+  ],
+  "prConcurrentLimit": 5,
+  "packageRules": [
+    {
+      "description": "Group all Prenta CMS packages so cms-core, plugins, admin, and the CLI bump together in one CI-gated PR.",
+      "matchPackageNames": [
+        "@prenta/*"
+      ],
+      "groupName": "Prenta CMS"
+    },
+    {
+      "description": "Auto-merge non-major Prenta updates once CI passes (incl. the prisma migrate deploy gate). Requires branch protection that requires the CI check.",
+      "matchPackageNames": [
+        "@prenta/*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
+    },
+    {
+      "description": "Major Prenta bumps can ship breaking schema/API changes — never auto-merge; flag for manual review.",
+      "matchPackageNames": [
+        "@prenta/*"
+      ],
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": false,
+      "addLabels": [
+        "breaking-change"
+      ]
+    }
+  ]
+}

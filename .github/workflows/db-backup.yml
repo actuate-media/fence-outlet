@@ -1,0 +1,34 @@
+name: Database backup
+on:
+  schedule:
+    - cron: '30 3 * * *' # nightly 03:30 UTC
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency: { group: db-backup, cancel-in-progress: false }
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with: { node-version: 22, cache: npm }
+      - name: Install PostgreSQL 17 client
+        run: |
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl -fsSL -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+          sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client-17
+          # Bypass pg_wrapper: hosted runners ship an older PostgreSQL cluster
+          # that /usr/bin/pg_dump would otherwise select over the 17 binaries.
+          echo "/usr/lib/postgresql/17/bin" >> "$GITHUB_PATH"
+      # Fresh scaffolds ship no lockfile yet; switch to npm ci once
+      # package-lock.json is committed.
+      - run: npm install
+      - name: Dump, encrypt, upload, prune
+        run: npx prenta db:backup --upload --retention-days 30 --json
+        env:
+          DIRECT_DATABASE_URL: ${{ secrets.DIRECT_DATABASE_URL }}
+          BLOB_READ_WRITE_TOKEN: ${{ secrets.BLOB_READ_WRITE_TOKEN }}
+          BACKUP_ENCRYPTION_KEY: ${{ secrets.BACKUP_ENCRYPTION_KEY }}
