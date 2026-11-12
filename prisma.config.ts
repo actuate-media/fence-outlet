@@ -1,9 +1,5 @@
 import path from 'node:path';
-import { config as loadEnv } from 'dotenv';
 import { defineConfig } from 'prisma/config';
-
-// Prisma 7 reads process.env and does not load .env on its own.
-loadEnv({ path: path.join(__dirname, '.env'), quiet: true });
 
 // Migrations (DDL) should run over a NON-pooled connection. Neon/Supabase
 // poolers frequently break schema changes, producing opaque "migration failed"
