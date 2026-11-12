@@ -5,12 +5,13 @@ import config from '../../../../prenta.config';
 import { handlePrentaAPI } from '@prenta/core/api';
 import { assertServingOriginConfigured } from '@prenta/core';
 
-// Launch Gate E — fail loud when NEXT_PUBLIC_SITE_URL is unset in production
-// (siteUrlFromRequest would otherwise fall back to the request host).
+// Launch Gate E — fail the production deploy when the public origin is unset.
+// `next build` always sets NODE_ENV=production, including on Preview, so the
+// gate keys off VERCEL_ENV. Preview still logs the missing origin and keeps
+// building.
 assertServingOriginConfigured({
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? config.seo?.siteUrl,
-  strict:
-    process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production',
+  strict: process.env.VERCEL_ENV === 'production',
 });
 
 /**
