@@ -6,7 +6,7 @@
     "dev": "next dev --webpack",
     "build": "prisma generate && node scripts/deploy-migrate.mjs && next build --webpack",
     "start": "next start",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && node scripts/bundle-htmlparser2.mjs",
     "generate": "prenta generate",
     "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
@@ -53,6 +53,7 @@
     "@types/pg": "^8.20.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "esbuild": "^0.28.2",
     "prisma": "^7.8.0",
     "typescript": "^5.7.0"
   }

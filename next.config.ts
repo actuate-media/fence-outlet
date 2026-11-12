@@ -58,6 +58,11 @@ const nextConfig: NextConfig = {
     }
     return webpackConfig;
   },
+  // The postinstall bundle is what Node require() loads. Trace it into every
+  // server function so the Vercel file tracer does not keep only the ESM entry.
+  outputFileTracingIncludes: {
+    '/**': ['./node_modules/htmlparser2/dist/index.cjs'],
+  },
   images: {
     // Serve AVIF first (≈50% smaller than JPEG), then WebP, for the best LCP.
     // next/image negotiates the format per request based on Accept headers.
