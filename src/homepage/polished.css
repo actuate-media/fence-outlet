@@ -1,6 +1,6 @@
 /* Polished Pickets homepage. Loaded after homepage.css. */
 
-html { scroll-padding-top: 110px; }
+html { overflow-anchor: none; scroll-padding-top: 110px; }
 @media (max-width: 1079px) { html { scroll-padding-top: 96px; scroll-padding-bottom: 90px; } }
 
 .fo-page { font-size: 17px; line-height: 1.6; }
@@ -8,7 +8,7 @@ html { scroll-padding-top: 110px; }
 .fo-page h3 { text-transform: none; letter-spacing: 0.005em; }
 .fo-page h1 { text-transform: uppercase; letter-spacing: 0.02em; }
 
-.fo-header { position: sticky; top: 0; transition: padding 200ms ease, box-shadow 200ms ease; }
+.fo-header { position: sticky; top: 0; overflow-anchor: none; transition: padding 200ms ease, box-shadow 200ms ease; }
 .fo-logo img { height: 52px; transition: height 200ms ease; }
 @media (min-width: 768px) { .fo-logo img { height: 60px; } }
 @media (min-width: 1080px) { .fo-logo img { height: 72px; } }
@@ -354,7 +354,7 @@ html { scroll-padding-top: 110px; }
 .pk-box-title span { display: block; color: var(--fo-gray-600); font-size: 13px; font-weight: 600; }
 .pk-box-title strong { color: var(--fo-blue-800); font-family: var(--font-display); font-size: 34px; }
 .pk-box-body li { padding: 5px 11px; border-radius: 999px; background: var(--fo-gray-100); color: var(--fo-gray-700); font-size: 14px; font-weight: 600; }
-.pk-stock { display: flex; align-items: center; gap: 8px; margin: 0; color: var(--fo-success); font-size: 14px; font-weight: 600; }
+.pk-stock { display: flex; align-items: center; gap: 8px; margin: auto 0 0; color: var(--fo-success); font-size: 14px; font-weight: 600; }
 .pk-stock i { width: 8px; height: 8px; border-radius: 50%; background: var(--fo-success-dot); box-shadow: 0 0 0 4px var(--fo-success-bg); }
 .pk-help { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 28px; margin-top: 32px; padding: 22px 28px; border-radius: 16px; background: var(--fo-blue-800); color: var(--fo-white); }
 .pk-help > div { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }

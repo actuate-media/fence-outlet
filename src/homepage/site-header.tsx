@@ -87,8 +87,11 @@ export function SiteHeader({ content }: { content?: unknown }) {
 
   useEffect(() => {
     const onScroll = () => {
-      const next = window.scrollY > 24;
-      setScrolled((current) => (current === next ? current : next));
+      const y = window.scrollY;
+      setScrolled((current) => {
+        if (current) return y > 0;
+        return y > 24;
+      });
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
