@@ -44,9 +44,10 @@ function PhoneIcon() {
 
 export function SiteHeader({ content }: { content?: unknown }) {
   const copy = headerContent(content);
-  const { stores, materials, boxes, storeMarked, storeSourceText, storeLive, nearest, nearestName, pickStore, setZip, zip, choosePath, setMenuOpen } = usePageState();
+  const { stores, materials, boxes, storeMarked, storeSourceText, storeLive, nearest, nearestName, pickStore, setZip, zip, choosePath, setMenuOpen, setDrawerOpen } = usePageState();
   const [menu, setMenu] = useState<MenuKey | null>(null);
   const [drawer, setDrawer] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [picker, setPicker] = useState(false);
   const [section, setSection] = useState<MenuKey | null>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -77,11 +78,22 @@ export function SiteHeader({ content }: { content?: unknown }) {
   }, []);
 
   useEffect(() => {
+    setDrawerOpen(drawer);
     document.body.style.overflow = drawer ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [drawer]);
+  }, [drawer, setDrawerOpen]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const next = window.scrollY > 24;
+      setScrolled((current) => (current === next ? current : next));
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   useEffect(() => {
     if (!picker) return;
@@ -190,7 +202,7 @@ export function SiteHeader({ content }: { content?: unknown }) {
     <SectionRoot>
       <header
         ref={headerRef}
-        className="fo-header"
+        className={scrolled ? 'fo-header is-scrolled' : 'fo-header'}
         onMouseLeave={scheduleClose}
         onBlur={(event) => {
           const next = event.relatedTarget;
@@ -366,7 +378,7 @@ export function SiteHeader({ content }: { content?: unknown }) {
               <path d="m6 9 6 6 6-6" />
             </svg>
           </button>
-          <a className="fo-store-phone ctm-phone" data-store={nearest.slug} href={nearest.tel}>{nearest.phone}</a>
+          <a className="fo-store-phone ctm-phone" data-current="" data-store={nearest.slug} href={nearest.tel}>{nearest.phone}</a>
           {picker ? (
             <div id="store-picker" role="dialog" aria-label="Choose your store" className="fo-store-panel">
               <div className="fo-store-title">Choose Your Store</div>
@@ -401,7 +413,7 @@ export function SiteHeader({ content }: { content?: unknown }) {
         </div>
         <p className="fo-sr" aria-live="polite">{storeLive}</p>
         <div className="fo-mobile-tools">
-          <a className="fo-call ctm-phone" data-store={nearest.slug} href={nearest.tel} aria-label={`Call Fence Outlet ${nearest.name} at ${nearest.phone}`}>
+          <a className="fo-call ctm-phone" data-current="" data-store={nearest.slug} href={nearest.tel} aria-label={`Call Fence Outlet ${nearest.name} at ${nearest.phone}`}>
             <PhoneIcon />
             Call <span className="fo-call-long">{nearest.phone}</span><span className="fo-call-short">{nearest.name}</span>
           </a>

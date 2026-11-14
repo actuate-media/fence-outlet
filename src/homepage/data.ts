@@ -129,6 +129,12 @@ export function nearestStoreName(zip: string): StoreName {
   return zipMap[zip.slice(0, 3)] ?? 'Orlando';
 }
 
+const serviceAreaPrefixes = ['320', '321', '322', '327', '328', '329', '335', '336', '339', '342', '346', '347'];
+
+export function inServiceArea(zip: string): boolean {
+  return serviceAreaPrefixes.includes(zip.slice(0, 3));
+}
+
 const storePoints: Record<StoreName, { lat: number; lng: number }> = {
   Orlando: { lat: 28.4158, lng: -81.4037 },
   Oviedo: { lat: 28.6698, lng: -81.2084 },
@@ -275,3 +281,53 @@ export const financingDisclaimer =
 
 export const smsConsent =
   'By checking this box, I consent to receive text messages related to Scheduling, Updates, Reminders Appointments from Fence Outlet. You can reply STOP to opt-out at any time. Messages and data rates may apply. Message frequency will vary. Reply HELP to 407-851-6660 for assistance.';
+
+export const bestFor: Record<string, string[]> = {
+  Vinyl: ['Privacy', 'Low maintenance'],
+  Wood: ['Natural look', 'Privacy'],
+  Aluminum: ['Pools', 'Decorative'],
+  'Chain Link': ['Pets & security', 'Value'],
+};
+
+export const kitChips: Record<string, string[]> = {
+  Wood: ['15 sections', '18 posts', "4' walk gate", 'Hardware'],
+  Vinyl: ['20 sections', '22 posts & caps', "4' walk gate", '22 bags cement'],
+  Aluminum: ['20 sections', '22 posts', "4' walk gate", 'Hardware'],
+};
+
+export const mapPins: Record<string, [number, number, 'l' | 'r' | 'ul' | 'dl']> = {
+  Orlando: [80.9, 44.5, 'l'],
+  Oviedo: [83.3, 40.0, 'ul'],
+  Daytona: [85.6, 32.1, 'l'],
+  Melbourne: [90.2, 49.5, 'dl'],
+  Tampa: [69.0, 51.6, 'l'],
+  'North Port': [70.4, 66.5, 'l'],
+  'Port Richey': [64.3, 46.5, 'l'],
+  Jacksonville: [76.4, 13.2, 'l'],
+};
+
+export const reviewCards = [
+  { tag: 'Vinyl installation', quote: '[Real Google review, 2–3 sentences, about the install crew and the finished fence.]', initial: 'A', name: '[First name L.]', where: '[City] · [Month Year]' },
+  { tag: 'Fence in a Box', quote: '[Real Google review about buying materials or a kit and the store staff.]', initial: 'B', name: '[First name L.]', where: '[City] · [Month Year]' },
+  { tag: 'Aluminum installation', quote: '[Real Google review about the estimate, permits or HOA help.]', initial: 'C', name: '[First name L.]', where: '[City] · [Month Year]' },
+];
+
+export function mapsUrl(address: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`Fence Outlet ${address}`)}`;
+}
+
+export function storeHoursStatus(now = new Date()): { open: boolean; text: string } {
+  const parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(now);
+  const part = (type: Intl.DateTimeFormatPartTypes) => parts.find((item) => item.type === type)?.value ?? '';
+  const day = part('weekday');
+  const hour = Number(part('hour'));
+  const minute = Number(part('minute'));
+  const today = day === 'Sat' ? [8, 16] : day === 'Sun' ? null : [8, 17];
+  const clock = hour + minute / 60;
+  const label = (value: number) => `${value > 12 ? value - 12 : value}${value >= 12 ? 'PM' : 'AM'}`;
+  if (today && clock >= today[0] && clock < today[1]) return { open: true, text: `Open now · until ${label(today[1])}` };
+  if (today && clock < today[0]) return { open: false, text: `Closed · opens ${label(today[0])} today` };
+  if (day === 'Fri') return { open: false, text: 'Closed · opens Sat 8AM' };
+  if (day === 'Sat' || day === 'Sun') return { open: false, text: 'Closed · opens Mon 8AM' };
+  return { open: false, text: 'Closed · opens 8AM tomorrow' };
+}

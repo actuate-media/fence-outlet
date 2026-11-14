@@ -11,6 +11,8 @@
   --fo-blue-600: #164183;
   --fo-blue-700: #113367;
   --fo-blue-800: #0d2750;
+  --fo-blue-900: #091b38;
+  --fo-blue-50: #eaf0f8;
   --fo-white: #ffffff;
   --fo-gray-50: #f7f6f4;
   --fo-gray-100: #efede9;
@@ -22,9 +24,14 @@
   --fo-gray-700: #423e38;
   --fo-gray-800: #2b2823;
   --fo-gray-900: #1a1815;
-  --fo-success: #2e7d43;
+  --fo-success: #1e6b34;
+  --fo-success-bg: #e6f4ea;
+  --fo-success-dot: #2e9b4e;
+  --fo-star: #e8a317;
+  --fo-map-fill: #dce4ef;
+  --fo-map-stroke: #a9b8ce;
   --fo-warning: #c77e14;
-  --fo-error: #be3a2b;
+  --fo-error: #b42318;
   --fo-info: var(--fo-blue-500);
   --text-heading: var(--fo-blue-700);
   --text-body: var(--fo-gray-700);
@@ -32,7 +39,7 @@
   --text-on-orange: var(--fo-white);
   --text-on-navy: var(--fo-white);
   --text-link: var(--fo-blue-500);
-  --text-link-hover: var(--fo-orange-600);
+  --text-link-hover: var(--fo-orange-700);
   --surface-page: var(--fo-white);
   --surface-alt: var(--fo-gray-50);
   --surface-card: var(--fo-white);
@@ -42,7 +49,7 @@
   --border-strong: var(--fo-gray-300);
   --border-focus: var(--fo-orange-500);
   --action-primary: var(--fo-orange-500);
-  --action-primary-hover: var(--fo-orange-600);
+  --action-primary-hover: #e37016;
   --action-secondary: var(--fo-blue-500);
   --action-secondary-hover: var(--fo-blue-600);
   --shadow-sm: 0 1px 2px rgba(13, 39, 80, 0.08);

@@ -95,7 +95,9 @@ body:has(.fo-page) {
   text-decoration: underline;
 }
 
-.fo-skip {
+.fo-page a.fo-skip,
+.fo-page a.fo-skip:hover,
+.fo-page a.fo-skip:focus {
   position: absolute;
   top: 8px;
   left: -9999px;
@@ -108,7 +110,7 @@ body:has(.fo-page) {
   text-decoration: underline;
 }
 
-.fo-skip:focus {
+.fo-page a.fo-skip:focus {
   left: 16px;
   color: #fff;
 }

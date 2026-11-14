@@ -7,6 +7,7 @@ import type { InitialStore } from './store-choice';
 import { QuoteHero } from './quote-hero';
 import { SiteHeader } from './site-header';
 import './homepage.css';
+import './polished.css';
 
 export function Homepage({ fontClassName, sections, initialStore }: { fontClassName: string; sections?: CmsSection[]; initialStore?: InitialStore }) {
   const state = pageStateFromSections(sections ?? []);

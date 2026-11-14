@@ -170,8 +170,23 @@ function record(value: unknown): Record<string, unknown> {
   return value && typeof value === 'object' && !Array.isArray(value) ? (value as Record<string, unknown>) : {};
 }
 
+const designPhrases: Record<string, string> = {
+  'Professional Fence Installation': 'Professional fence installation',
+  'Fence Materials & DIY Supply': 'Fence materials & DIY supply',
+  '8 Florida Showrooms': '8 Florida showrooms',
+  '12 Months 0% Interest': '12 months, 0% interest',
+  'Pick Your Fence': 'Pick your fence',
+  'Every style, installed by us or ready for you to build.': "Four materials, dozens of styles. We'll install it, or you can take it home today.",
+  "Everything you need for an average 120' backyard, including a standard 4' walk gate with hardware.": "Everything for an average 120' backyard, with a standard 4' walk gate and hardware. Pick up today or get it delivered.",
+  'On all of our fences. Starting at $125/month for 36 months for White Vinyl and Aluminum Fencing installed.': 'On all of our fences. Starting at $125/month for 36 months for white vinyl and aluminum fencing, installed.',
+  'Come See It In Person': 'Come see it in person',
+  'Thousands of Installations Across Florida': 'Thousands of installations across Florida',
+  'Get Your Financing Offer': 'Get your financing offer',
+};
+
 function text(value: unknown, fallback: string): string {
-  return typeof value === 'string' ? value : fallback;
+  const raw = typeof value === 'string' ? value : fallback;
+  return designPhrases[raw] ?? raw;
 }
 
 function media(value: unknown, fallback: string): string {
@@ -284,7 +299,7 @@ const heroTabs: HeroContent['tabs'] = {
     label: 'We Install It',
     buttonLabel: 'We Install It: professional installation',
     eyebrow: 'We Install It',
-    heading: 'Professional Fence Installation',
+    heading: 'Professional fence installation',
     lead: 'Free estimate at your home. Permits and HOA paperwork handled.',
     detail: 'Installed from $125/mo on approved credit',
     emphasis: '$125/mo',
@@ -297,7 +312,7 @@ const heroTabs: HeroContent['tabs'] = {
     label: 'You Build It',
     buttonLabel: 'You Build It: fence materials and DIY supply',
     eyebrow: 'You Build It',
-    heading: 'Fence Materials & DIY Supply',
+    heading: 'Fence materials & DIY supply',
     lead: 'IN STOCK at 8 showrooms with NO wait. Store pickup or delivery.',
     detail: 'Fence in a Box from $1,392',
     emphasis: '$1,392',
@@ -310,7 +325,7 @@ const heroTabs: HeroContent['tabs'] = {
     label: '8 Showrooms',
     buttonLabel: '8 Florida showrooms',
     eyebrow: '',
-    heading: '8 Florida Showrooms',
+    heading: '8 Florida showrooms',
     lead: 'See and feel every style. Mon–Fri 8–5 · Sat 8–4.',
     detail: '',
     emphasis: '',
@@ -323,7 +338,7 @@ const heroTabs: HeroContent['tabs'] = {
     label: '0% Financing',
     buttonLabel: 'Financing offers',
     eyebrow: '',
-    heading: '12 Months 0% Interest',
+    heading: '12 months, 0% interest',
     lead: 'On all of our fences. Starting at $125/month for 36 months for White Vinyl and Aluminum Fencing installed.',
     detail: '',
     emphasis: '',
@@ -419,8 +434,8 @@ export function fenceTypesContent(value: unknown): FenceTypesContent {
       })
     : fallback;
   return {
-    heading: text(c.heading, 'Pick Your Fence'),
-    intro: text(c.intro, 'Every style, installed by us or ready for you to build.'),
+    heading: text(c.heading, 'Pick your fence'),
+    intro: text(c.intro, "Four materials, dozens of styles. We'll install it, or you can take it home today."),
     materials: rows,
   };
 }
@@ -447,7 +462,7 @@ export function fenceBoxContent(value: unknown): FenceBoxContent {
     : fallback;
   return {
     heading: text(c.heading, 'Fence in a Box'),
-    intro: text(c.intro, "Everything you need for an average 120' backyard, including a standard 4' walk gate with hardware."),
+    intro: text(c.intro, "Everything for an average 120' backyard, with a standard 4' walk gate and hardware. Pick up today or get it delivered."),
     kits,
   };
 }
@@ -455,9 +470,9 @@ export function fenceBoxContent(value: unknown): FenceBoxContent {
 export function financingContent(value: unknown): FinancingContent {
   const c = record(value);
   return {
-    heading: text(c.heading, '12 Months 0% Interest'),
-    body: text(c.body, 'On all of our fences. Starting at $125/month for 36 months for White Vinyl and Aluminum Fencing installed.'),
-    ctaLabel: text(c.ctaLabel, 'Get Your Financing Offer'),
+    heading: text(c.heading, '12 months, 0% interest'),
+    body: text(c.body, 'On all of our fences. Starting at $125/month for 36 months for white vinyl and aluminum fencing, installed.'),
+    ctaLabel: text(c.ctaLabel, 'Get your financing offer'),
     ctaUrl: text(c.ctaUrl, `${site}/professional-fence-financing/`),
     disclaimer: text(c.disclaimer, financingDisclaimer),
   };
@@ -482,13 +497,13 @@ export function locationsContent(value: unknown): LocationsContent {
         }];
       })
     : fallback;
-  return { heading: text(c.heading, 'Come See It In Person'), stores: rows };
+  return { heading: text(c.heading, 'Come see it in person'), stores: rows };
 }
 
 export function installationsContent(value: unknown): InstallationsContent {
   const c = record(value);
   return {
-    heading: text(c.heading, 'Thousands of Installations Across Florida'),
+    heading: text(c.heading, 'Thousands of installations across Florida'),
     beforeImage: media(c.beforeImage, '/homepage/project-before.jpg'),
     beforeAlt: text(c.beforeAlt, 'Worn wood fence before replacement'),
     beforeCaption: text(c.beforeCaption, 'Before'),
@@ -608,6 +623,7 @@ export function pageStateFromSections(sections: CmsSection[]) {
       buy: item.buyUrl,
       links: item.links,
     })),
+    headline: trustContent(body('trust-band')).heading,
     boxes: fenceBoxContent(body('fence-box')).kits.map((kit) => ({
       name: kit.name,
       price: kit.price,

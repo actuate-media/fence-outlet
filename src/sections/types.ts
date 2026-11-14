@@ -114,7 +114,7 @@ export const marketingSectionTypes: CustomSectionTypeInput[] = [
     name: 'Trust Band',
     scope: ['page'],
     icon: 'megaphone',
-    description: 'The navy headline and trust line under the header.',
+    description: 'Homepage headline. It is drawn over the hero pickets.',
     category: 'content',
     fields: [
       { key: 'heading', label: 'Heading', type: 'text', required: true },
