@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  migrations:
+    name: Prisma migrate (ephemeral Postgres)
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: prenta
+          POSTGRES_PASSWORD: prenta
+          POSTGRES_DB: prenta_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U prenta"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      # prisma migrate deploy reads DIRECT_DATABASE_URL (see prisma.config.ts).
+      # Both point at the throwaway CI database — never a real environment.
+      DATABASE_URL: postgresql://prenta:prenta@localhost:5432/prenta_ci
+      DIRECT_DATABASE_URL: postgresql://prenta:prenta@localhost:5432/prenta_ci
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate Prisma client
+        run: npx prisma generate
+      # The gate: migrations must apply cleanly to a fresh database. A broken or
+      # out-of-order migration fails here, not at deploy time.
+      - name: Apply migrations
+        run: npx prisma migrate deploy

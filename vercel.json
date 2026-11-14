@@ -1,0 +1,36 @@
+{
+  "buildCommand": "prisma generate && node scripts/deploy-migrate.mjs && next build --webpack",
+  "framework": "nextjs",
+  "functions": {
+    "app/api/cms/**/*.ts": {
+      "maxDuration": 30,
+      "memory": 1024
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cms/cron/publish",
+      "schedule": "*/5 * * * *"
+    },
+    {
+      "path": "/api/cms/cron/cleanup",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cms/cron/seo-scan",
+      "schedule": "0 4 * * 1"
+    },
+    {
+      "path": "/api/cms/cron/search-sync",
+      "schedule": "0 5 * * *"
+    },
+    {
+      "path": "/api/cms/cron/seo-autopilot",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cms/cron/content-health",
+      "schedule": "30 2 * * *"
+    }
+  ]
+}

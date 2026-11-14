@@ -1,0 +1,19 @@
+node_modules/
+.next/
+dist/
+.env
+.env.local
+.env.production.local
+.turbo
+.vercel
+*.tsbuildinfo
+
+# Local MCP config — contains a real API key once you fill it in.
+.cursor/mcp.json
+.vscode/mcp.json
+
+# Throwaway manifest written by `npm run blocks:diff`.
+.prenta-blocks.next.json
+.worktrees/
+generated/
+next-env.d.ts

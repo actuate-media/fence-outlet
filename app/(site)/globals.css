@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+/*
+ * The public section renderer's utility classes arrive via the stylesheet it
+ * ships (imported in app/layout.tsx), NOT by scanning the package. An
+ * @source into node_modules silently emits nothing under pnpm: pnpm links
+ * packages by symlink and Tailwind's scanner does not follow symlinks, so the
+ * site would render sections with correct markup and no styling.
+ */
+
+:root {
+  --font-sans: system-ui, -apple-system, sans-serif;
+}
+
+/*
+ * Custom fonts — uncomment after adding licensed woff2 files to public/fonts/.
+ *
+ * @font-face {
+ *   font-family: 'Site Display';
+ *   src: url('/fonts/display.woff2') format('woff2');
+ *   font-weight: 600 700;
+ *   font-display: swap;
+ * }
+ * @font-face {
+ *   font-family: 'Site Body';
+ *   src: url('/fonts/body.woff2') format('woff2');
+ *   font-weight: 400 500;
+ *   font-display: swap;
+ * }
+ * :root {
+ *   --font-sans: 'Site Body', system-ui, sans-serif;
+ * }
+ */
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

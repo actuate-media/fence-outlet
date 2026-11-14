@@ -1,0 +1,10 @@
+/*
+ * Utility classes for the public section renderers. The editor canvas renders
+ * the same components the site does (see `<AdminRoot sectionRenderers>`), so
+ * the admin route needs their styles too. Imported rather than scanned — a
+ * Tailwind `@source` into node_modules emits nothing under pnpm.
+ */
+@import "@prenta/sections-react/styles.css";
+
+/* Pre-compiled Prenta CMS admin styles — includes all Tailwind utilities and theme. */
+@import "@prenta/admin/styles/precompiled.css";
